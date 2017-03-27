@@ -33,7 +33,7 @@ public class Main {
         Calendar nowCal = Calendar.getInstance();
         long secondsFromMidnight = 0;
 
-        if (args.length != 5 || (!args[0].equals("exec") && !args[0].equals("train"))) {
+        if (args.length != 6 || (!args[0].equals("exec") && !args[0].equals("train"))) {
             System.err.println("No se ha introducido un parámentro correcto (exec/train)");
             System.exit(0);
         }
@@ -61,11 +61,11 @@ public class Main {
             time = (int) (T * (Math.ceil(Math.abs(secondsFromMidnight / T)))); //Redondea a múltiplo de T (segundos)
 
             try {
-                byte[] encoded = Files.readAllBytes(Paths.get("/home/saturno/NetBeansProjects/SensorPAE/test.json"));
+                byte[] encoded = Files.readAllBytes(Paths.get(args[4]+"/input.json"));
                 if (args[0].equals("exec")) {
                     System.out.println("Detectando anomalías:");
                     ArrayList<String> anomalies = detectAnomalies(args[2], args[3], new String(encoded, "UTF-8"), weekDay, time);
-                    processAnomalies(anomalies, secondsFromMidnight, args[4]);
+                    processAnomalies(anomalies, secondsFromMidnight, args[5]);
                 } else if (args[0].equals("train")) {
                     addDataToDB(args[2], args[3], new String(encoded, "UTF-8"), weekDay, time);
                 } else {
