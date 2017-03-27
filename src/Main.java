@@ -61,7 +61,7 @@ public class Main {
             time = (int) (T * (Math.ceil(Math.abs(secondsFromMidnight / T)))); //Redondea a múltiplo de T (segundos)
 
             try {
-                byte[] encoded = Files.readAllBytes(Paths.get(args[4]+"/input.json"));
+                byte[] encoded = Files.readAllBytes(Paths.get(args[4]));
                 if (args[0].equals("exec")) {
                     System.out.println("Detectando anomalías:");
                     ArrayList<String> anomalies = detectAnomalies(args[2], args[3], new String(encoded, "UTF-8"), weekDay, time);
@@ -71,7 +71,7 @@ public class Main {
                 } else {
                     throw new Exception("Parámetro incorrecto (exec/train)");
                 }
-                Thread.sleep(900000);
+                Thread.sleep(T);
             } catch (Exception ex) {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                 System.exit(0);
@@ -263,7 +263,7 @@ public class Main {
 
         PrintWriter writer;
         try {
-            writer = new PrintWriter(path + "/anomalies.json", "UTF-8");
+            writer = new PrintWriter(path, "UTF-8");
             writer.println(jsonString);
             writer.close();
 
