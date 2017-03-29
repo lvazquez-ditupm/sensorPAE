@@ -71,7 +71,7 @@ public class Main {
                 } else {
                     throw new Exception("Parámetro incorrecto (exec/train)");
                 }
-                Thread.sleep(T);
+                Thread.sleep(T*1000);
             } catch (Exception ex) {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
                 System.exit(0);
@@ -83,14 +83,14 @@ public class Main {
      * Obtiene los valores de estado de las salas y activos, y los compara con
      * la base de datos para detectar anomalías
      *
-     * @param path ruta al fichero input
+     * @param input contenido del fichero input
      * @param weekDay día de la semana (1-domingo, 7-sábado)
      * @param time segundos desde la medianoche
      * @return lista con las anomalías detectadas
      */
-    private static ArrayList<String> detectAnomalies(String user, String passwd, String path, int weekDay, int time) throws SQLException {
+    private static ArrayList<String> detectAnomalies(String user, String passwd, String input, int weekDay, int time) throws SQLException {
 
-        ArrayList<LinkedTreeMap<String, Object>> jsonMap = new Gson().fromJson(path, ArrayList.class);
+        ArrayList<LinkedTreeMap<String, Object>> jsonMap = new Gson().fromJson(input, ArrayList.class);
         ArrayList<String> anomalies = new ArrayList<>();
 
         for (LinkedTreeMap<String, Object> roomActive : jsonMap) {
